@@ -4,6 +4,8 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import SavedNews from "./pages/SavedNews";
 import SearchNews from "./pages/SearchNews";
+import CategoryNews from "./pages/CategoryNews";
+import CategoryHero from "./pages/CategoryHero";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,19 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/search",
+        path: "/programming",
+        element: <CategoryNews />,
+      },
+      {
+        path: "/category",
+        element: <CategoryHero />,
+      },
+      {
+        path: "/category/:section",
+        element: <CategoryNews />,
+      },
+      {
+        path: "/search/:query",
         element: <SearchNews />,
       },
       {
