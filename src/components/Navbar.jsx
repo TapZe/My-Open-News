@@ -47,9 +47,9 @@ const Navbar = () => {
               <li>
                 <Link to={`/`}>Home</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to={`/category`}>Category</Link>
-              </li>
+              </li> */}
               <li>
                 <Link to={`/programming`}>Programming</Link>
               </li>
@@ -61,9 +61,9 @@ const Navbar = () => {
             <li>
               <Link to={`/`}>Home</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to={`/category`}>Category</Link>
-            </li>
+            </li> */}
             <li>
               <Link to={`/programming`}>Programming</Link>
             </li>
