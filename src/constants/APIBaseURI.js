@@ -1,4 +1,4 @@
-const BASE_URI = import.meta.env.VITE_CURRENCY_API_URI;
+const BASE_URI = import.meta.env.VITE_NYT_API_BASE_URI;
 
 export const SEARCH_URI = `${BASE_URI}/search/v2/articlesearch.json`;
 export const TOP_STORY_URI = (section) => {
