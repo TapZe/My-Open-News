@@ -33,12 +33,12 @@ export const {
 
 export default newsSearchSlice.reducer;
 
-export function fetchNews(query) {
+export function fetchNews(query = "indonesia") {
   return async (dispatch /*, getState*/) => {
     const { VITE_NYT_API_KEY } = import.meta.env;
     dispatch(fetchNewsSearchLoading(true));
     try {
-      const response = await axios({
+      const { data } = await axios({
         method: "GET",
         url: SEARCH_URI,
         params: {
@@ -46,10 +46,10 @@ export function fetchNews(query) {
           query,
         },
       });
-      const { docs: data } = await response.response;
-      dispatch(fetchNewsSearchSuccess(data));
+      const { docs: news } = await data.response;
+      dispatch(fetchNewsSearchSuccess(news));
     } catch (error) {
-      dispatch(fetchNewsSearchError(error.fault.faultstring));
+      dispatch(fetchNewsSearchError(error.message));
     } finally {
       dispatch(fetchNewsSearchLoading(false));
     }
