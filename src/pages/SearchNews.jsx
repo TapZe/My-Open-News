@@ -16,7 +16,7 @@ const SearchNews = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    let searchQuery = query.trim(); // Empty if it's just space
+    let searchQuery = query?.trim(); // Empty if it's just space (?. is for if the query an undefined var)
     // Check if the page is for programming
     if (pathname === "/programming") {
       searchQuery = "programming language";
@@ -35,7 +35,7 @@ const SearchNews = () => {
         <h1 className="text-3xl font-bold text-center mb-10">
           {pathname === "/programming"
             ? "Programming"
-            : query.trim()
+            : query?.trim() // Make sure not empty (?. is for if the query an undefined var)
             ? query
             : "Indonesia"}{" "}
           <span className="text-cyan-600">News</span>
