@@ -18,7 +18,7 @@ const NewsCard = ({ article }) => {
       <div className="card-body">
         <div className="group absolute top-2 right-2">
           <button
-            className="btn btn-sm"
+            className="btn btn-sm btn-secondary"
             // onClick={() => onSave(article)}
           >
             <FontAwesomeIcon icon={faBookmark} />
