@@ -21,7 +21,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      <div className="navbar bg-base-100 shadow-xl sticky top-0 md:px-10">
+      <div className="navbar bg-base-100 shadow-xl sticky top-0 z-50 md:px-10">
         <div className="navbar-start lg:hidden">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost">
