@@ -1,7 +1,32 @@
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faBookmark as solidBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  saveArticle,
+  removeArticle,
+} from "../../redux/reducers/savedNewsSlice";
 
 const NewsCard = ({ article }) => {
+  const dispatch = useDispatch();
+
+  // Retrieve saved articles from the Redux store
+  const { savedArticles } = useSelector((state) => state.persist);
+
+  // Check if the current article is already saved
+  const isSaved = savedArticles?.some(
+    (savedArticle) => savedArticle._id === article._id
+  );
+
+  // Toggle save/remove article
+  const handleSave = () => {
+    if (isSaved) {
+      dispatch(removeArticle(article));
+    } else {
+      dispatch(saveArticle(article));
+    }
+  };
+
   return (
     <div className="card bg-base-100 w-80 shadow-xl">
       <figure>
@@ -17,14 +42,11 @@ const NewsCard = ({ article }) => {
       </figure>
       <div className="card-body">
         <div className="group absolute top-2 right-2">
-          <button
-            className="btn btn-sm btn-secondary"
-            // onClick={() => onSave(article)}
-          >
-            <FontAwesomeIcon icon={faBookmark} />
+          <button className="btn btn-sm btn-secondary" onClick={handleSave}>
+            <FontAwesomeIcon icon={isSaved ? solidBookmark : regularBookmark} />
           </button>
           <div className="tooltip absolute left-1/2 bottom-full mb-2 hidden w-32 -translate-x-1/2 rounded-md bg-gray-700 text-white text-xs px-2 py-1 shadow-lg group-hover:block">
-            Save Bookmark
+            {isSaved ? `Remove News` : `Save News`}
           </div>
         </div>
         <a
