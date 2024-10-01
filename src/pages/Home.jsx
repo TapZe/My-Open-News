@@ -39,7 +39,7 @@ const Home = () => {
                 .fill(null)
                 .map((_, index) => <NewsCardSkeleton key={index} />)
             : // Display actual data when loaded
-              news.map((article) => (
+              news?.map((article) => (
                 <NewsCard key={article._id} article={article} />
               ))}
         </div>
