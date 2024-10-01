@@ -23,8 +23,8 @@ const Navbar = () => {
   return (
     <>
       <div className="navbar bg-base-200">
-        <div className="navbar-start md:px-5">
-          <Link to={`/`} className="btn btn-ghost text-xl flex">
+        <div className="navbar-start md:px-8">
+          <Link to={`/`} className="font-bold text-xl flex">
             <p>
               <span className="text-cyan-600">O</span>pen
               <span className="text-cyan-600">News</span>
