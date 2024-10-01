@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeController from "./ThemeController";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBookmark } from "@fortawesome/free-solid-svg-icons";
@@ -6,8 +6,19 @@ import { useState } from "react";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (search !== "") {
+      navigate(`/search/${search}`);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <>
@@ -78,11 +89,12 @@ const Navbar = () => {
                 placeholder="Search"
                 className="input input-bordered w-24 md:w-auto"
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
             <button
               className="btn btn-square hidden md:flex"
-              onClick={handleSearch()}
+              onClick={handleSearch}
             >
               <FontAwesomeIcon icon={faSearch} />
             </button>
