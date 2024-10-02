@@ -8,12 +8,20 @@ export const newsSearchSlice = createSlice({
     news: [],
     isLoading: false,
     errorMessage: "",
+    meta: {
+      pages: 0,
+      current: 0,
+    },
   },
   reducers: {
     fetchNewsSearchSuccess: (state, action) => {
       state.isLoading = false;
       state.errorMessage = "";
-      state.news = action.payload;
+      state.news = action.payload.news;
+      state.meta.current = action.payload.page;
+      const totalPages = Math.floor(action.payload.meta.hits / 10); //API pagination is 10 items per pages, hits is the items recieved
+      state.meta.pages =
+        action.payload.meta.hits % 10 === 0 ? totalPages - 1 : totalPages; //If item is just 10 it will return 1 but the page is only page 0
     },
     fetchNewsSearchLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -33,15 +41,27 @@ export const {
 
 export default newsSearchSlice.reducer;
 
-export function fetchNews(query = "indonesia", begin_date, end_date) {
-  return async (dispatch /*, getState*/) => {
+export function fetchNews(params = {}) {
+  // default parameters for params object
+  const {
+    query = "indonesia",
+    page = 0,
+    begin_date = null,
+    end_date = null,
+    fq = null,
+  } = params;
+
+  return async (dispatch /*, getState */) => {
     const { VITE_NYT_API_KEY } = import.meta.env;
     const params = {
       "api-key": VITE_NYT_API_KEY,
       query,
+      page,
     };
+    // only add when it's inputed
     if (begin_date) params.begin_date = begin_date;
     if (end_date) params.end_date = end_date;
+    if (fq) params.fq = fq;
 
     dispatch(fetchNewsSearchLoading(true));
     try {
@@ -50,8 +70,8 @@ export function fetchNews(query = "indonesia", begin_date, end_date) {
         url: SEARCH_URI,
         params,
       });
-      const { docs: newsData } = await data.response;
-      dispatch(fetchNewsSearchSuccess(newsData));
+      const { docs: newsData, meta } = await data.response;
+      dispatch(fetchNewsSearchSuccess({ news: newsData, page, meta }));
     } catch (error) {
       dispatch(fetchNewsSearchError(error.message));
     } finally {
