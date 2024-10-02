@@ -21,14 +21,14 @@ const router = createBrowserRouter([
         path: "/programming",
         element: <ProgrammingNews />,
       },
-      {
-        path: "/category",
-        element: <CategoryHero />,
-      },
-      {
-        path: "/category/:section",
-        element: <CategoryNews />,
-      },
+      // {
+      //   path: "/category",
+      //   element: <CategoryHero />,
+      // },
+      // {
+      //   path: "/category/:section",
+      //   element: <CategoryNews />,
+      // },
       {
         path: "/search/:query",
         element: <SearchNews />,
