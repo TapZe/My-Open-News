@@ -6,6 +6,7 @@ import SavedNews from "./pages/SavedNews";
 import SearchNews from "./pages/SearchNews";
 import CategoryNews from "./pages/CategoryNews";
 import CategoryHero from "./pages/CategoryHero";
+import ProgrammingNews from "./pages/ProgrammingNews";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/programming",
-        element: <SearchNews />,
+        element: <ProgrammingNews />,
       },
       {
         path: "/category",
