@@ -13,8 +13,15 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //fetch default data of "indonesia"
-    dispatch(fetchNews({ page }));
+    // setting the parameters
+    const params = {
+      page,
+    };
+    const promise = dispatch(fetchNews(params));
+    return () => {
+      // `createAsyncThunk` attaches an `abort()` method to the promise
+      promise.abort();
+    };
   }, [page]);
 
   // Pagination handler

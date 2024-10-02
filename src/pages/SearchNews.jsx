@@ -15,12 +15,15 @@ const SearchNews = () => {
   const { query } = useParams();
 
   useEffect(() => {
-    dispatch(
-      fetchNews({
-        query: query,
-        page,
-      })
-    );
+    const params = {
+      query,
+      page,
+    };
+    const promise = dispatch(fetchNews(params));
+    return () => {
+      // `createAsyncThunk` attaches an `abort()` method to the promise
+      promise.abort();
+    };
   }, [page]);
 
   // Pagination handler
