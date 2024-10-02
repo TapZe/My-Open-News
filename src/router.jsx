@@ -4,8 +4,8 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import SavedNews from "./pages/SavedNews";
 import SearchNews from "./pages/SearchNews";
-import CategoryNews from "./pages/CategoryNews";
-import CategoryHero from "./pages/CategoryHero";
+// import CategoryNews from "./pages/CategoryNews";
+// import CategoryHero from "./pages/CategoryHero";
 import ProgrammingNews from "./pages/ProgrammingNews";
 
 const router = createBrowserRouter([
