@@ -42,10 +42,11 @@ export const newsSearchSlice = createSlice({
       })
       .addCase(fetchNews.rejected, (state, action) => {
         if (!action.meta.aborted) state.isLoading = false;
-        state.errorMessage =
-          action.payload || action.meta.aborted
-            ? "Some request has been aborted."
-            : "Failed to fetch news";
+        state.errorMessage = action.payload
+          ? action.payload
+          : action.meta.aborted
+          ? "Some request has been aborted."
+          : "failed to fetch request";
       });
   },
 });
