@@ -27,6 +27,12 @@ const NewsCard = ({ article }) => {
     }
   };
 
+  // Format the publication date
+  const pubDate = new Date(article.pub_date);
+  const formattedPubDate = `${pubDate.getDate()}-${`0${
+    pubDate.getMonth() + 1
+  }`.slice(-2)}-${pubDate.getFullYear()}`;
+
   return (
     <div className="card bg-base-100 w-80 shadow-xl">
       <figure>
@@ -58,6 +64,9 @@ const NewsCard = ({ article }) => {
           {article.headline.main}
         </a>
         <p className="text-justify">{article.snippet}</p>
+        <p className="text-sm flex items-end text-gray-600">
+          {formattedPubDate}
+        </p>
         <div className="card-actions justify-end">
           <a
             className="btn btn-primary"
