@@ -1,7 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { saveTheme } from "../redux/reducers/themeSlice";
 
 const ThemeController = () => {
+  // Retrieve saved theme from the Redux persist store
+  const { dark } = useSelector((state) => state.persist.theme);
+  const dispatch = useDispatch();
+
+  const handleChangeTheme = (isDark) => {
+    dispatch(saveTheme(isDark));
+  };
+
   return (
     <>
       <div className="dropdown dropdown-end">
@@ -19,6 +29,8 @@ const ThemeController = () => {
               className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
               aria-label="Light"
               value="light"
+              onChange={() => handleChangeTheme(false)} // Update theme to light
+              checked={!dark} // Set the initial checked state based on the saved value
             />
           </li>
           <li>
@@ -27,7 +39,8 @@ const ThemeController = () => {
               name="theme-dropdown"
               className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
               aria-label="Dark"
-              value="night"
+              onChange={() => handleChangeTheme(true)} // Update theme to dark
+              checked={dark} // Set the initial checked state based on the saved value
             />
           </li>
         </ul>
