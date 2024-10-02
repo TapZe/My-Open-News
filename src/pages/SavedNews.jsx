@@ -1,8 +1,8 @@
 // SavedNews.js
 import { useSelector } from "react-redux";
-import NewsCard from "../components/cards/NewsCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import NewsCard from "../components/news/cards/NewsCard";
 
 const SavedNews = () => {
   const { savedArticles } = useSelector((state) => state.persist);

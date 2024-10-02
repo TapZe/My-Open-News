@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   saveArticle,
   removeArticle,
-} from "../../redux/reducers/savedNewsSlice";
+} from "../../../redux/reducers/savedNewsSlice";
 
 const NewsCard = ({ article }) => {
   const dispatch = useDispatch();

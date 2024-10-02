@@ -1,16 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchNews } from "../redux/reducers/newsSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import NewsCardSkeleton from "../components/cards/NewsCardSkeleton";
-import NewsCard from "../components/cards/NewsCard";
+import ErrorMessage from "../components/ErrorMessage";
+import NewsGrid from "../components/news/NewsGrid";
+import NewsPagination from "../components/news/NewsPagination";
 
 const SearchNews = () => {
-  const { news, isLoading, errorMessage } = useSelector(
+  const { news, isLoading, errorMessage, totalPages } = useSelector(
     (state) => state.newsSearch
   );
+  const [page, setPage] = useState(0);
   const dispatch = useDispatch();
   const { query } = useParams();
 
@@ -18,12 +18,15 @@ const SearchNews = () => {
     dispatch(
       fetchNews({
         query: query,
+        page,
       })
     );
-  }, []);
+  }, [page]);
 
-  // This is for defining how many copies of skeleton
-  const skeletonCount = 8;
+  // Pagination handler
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
   return (
     <>
@@ -34,23 +37,18 @@ const SearchNews = () => {
             : "Indonesia"}{" "}
           <span className="text-cyan-600">News</span>
         </h1>
-        {errorMessage && (
-          <div role="alert" className="alert alert-error mb-5">
-            <FontAwesomeIcon icon={faCircleXmark} />
-            <span>{errorMessage}</span>
-          </div>
+        {/* Error Msg */}
+        {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+        {/* Skeleton and news*/}
+        <NewsGrid news={news} isLoading={isLoading} />
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <NewsPagination
+            page={page}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {isLoading
-            ? // Display skeleton cards when loading
-              Array(skeletonCount)
-                .fill(null)
-                .map((_, index) => <NewsCardSkeleton key={index} />)
-            : // Display actual data when loaded
-              news?.map((article) => (
-                <NewsCard key={article._id} article={article} />
-              ))}
-        </div>
       </div>
     </>
   );
