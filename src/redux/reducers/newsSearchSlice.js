@@ -8,19 +8,15 @@ export const newsSearchSlice = createSlice({
     news: [],
     isLoading: false,
     errorMessage: "",
-    meta: {
-      pages: 0,
-      current: 0,
-    },
+    totalPages: 0, // total pages
   },
   reducers: {
     fetchNewsSearchSuccess: (state, action) => {
       state.isLoading = false;
       state.errorMessage = "";
       state.news = action.payload.news;
-      state.meta.current = action.payload.page;
       const totalPages = Math.floor(action.payload.meta.hits / 10); //API pagination is 10 items per pages, hits is the items recieved
-      state.meta.pages =
+      state.totalPages =
         action.payload.meta.hits % 10 === 0 ? totalPages - 1 : totalPages; //If item is just 10 it will return 1 but the page is only page 0
     },
     fetchNewsSearchLoading: (state, action) => {
@@ -71,7 +67,7 @@ export function fetchNews(params = {}) {
         params,
       });
       const { docs: newsData, meta } = await data.response;
-      dispatch(fetchNewsSearchSuccess({ news: newsData, page, meta }));
+      dispatch(fetchNewsSearchSuccess({ news: newsData, meta }));
     } catch (error) {
       dispatch(fetchNewsSearchError(error.message));
     } finally {
