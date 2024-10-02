@@ -10,8 +10,8 @@ import {
 const NewsCard = ({ article }) => {
   const dispatch = useDispatch();
 
-  // Retrieve saved articles from the Redux store
-  const { savedArticles } = useSelector((state) => state.persist);
+  // Retrieve saved articles from the Redux persist store
+  const { savedArticles } = useSelector((state) => state.persist.savedNews);
 
   // Check if the current article is already saved
   const isSaved = savedArticles?.some(

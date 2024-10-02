@@ -5,7 +5,7 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import NewsCard from "../components/news/cards/NewsCard";
 
 const SavedNews = () => {
-  const { savedArticles } = useSelector((state) => state.persist);
+  const { savedArticles } = useSelector((state) => state.persist.savedNews);
 
   return (
     <>
