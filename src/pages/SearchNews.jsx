@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { fetchNews } from "../redux/reducers/newsSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import NewsCardSkeleton from "../components/cards/NewsCardSkeleton";
@@ -13,18 +13,14 @@ const SearchNews = () => {
   );
   const dispatch = useDispatch();
   const { query } = useParams();
-  const { pathname } = useLocation();
 
   useEffect(() => {
-    let searchQuery = query?.trim(); // Empty if it's just space (?. is for if the query an undefined var)
-    // Check if the page is for programming
-    if (pathname === "/programming") {
-      searchQuery = "programming language";
-    } else if (!searchQuery) {
-      searchQuery = "indonesia";
-    }
-    dispatch(fetchNews(searchQuery));
-  }, [pathname]);
+    dispatch(
+      fetchNews({
+        query: query,
+      })
+    );
+  }, []);
 
   // This is for defining how many copies of skeleton
   const skeletonCount = 8;
@@ -33,9 +29,7 @@ const SearchNews = () => {
     <>
       <div className="w-full">
         <h1 className="text-3xl font-bold text-center mb-10">
-          {pathname === "/programming"
-            ? "Programming"
-            : query?.trim() // Make sure not empty (?. is for if the query an undefined var)
+          {query?.trim() // Make sure not empty (?. is for if the query an undefined var)
             ? query
             : "Indonesia"}{" "}
           <span className="text-cyan-600">News</span>
