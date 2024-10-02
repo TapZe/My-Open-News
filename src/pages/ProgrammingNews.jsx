@@ -11,27 +11,28 @@ const SearchNews = () => {
   );
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
-  const payload = {
-    query: "programming",
-    fq: `section_name:("technology")`,
-  };
 
   useEffect(() => {
+    // setting the parameters
+    const params = {
+      query: "programming",
+      fq: `section_name:("technology")`,
+      page,
+    };
     // set date for one month ago
     const today = new Date();
     const oneMonthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
-    payload.end_date = today.toISOString().slice(0, 10).replace(/-/g, ""); // format to 20201230 (as the api needs)
-    payload.begin_date = oneMonthAgo
+    params.end_date = today.toISOString().slice(0, 10).replace(/-/g, ""); // format to 20201230 (as the api needs)
+    params.begin_date = oneMonthAgo
       .toISOString()
       .slice(0, 10)
       .replace(/-/g, ""); // format to 20201230 (as the api needs)
 
-    dispatch(
-      fetchNews({
-        ...payload,
-        page,
-      })
-    );
+    const promise = dispatch(fetchNews(params));
+    return () => {
+      // `createAsyncThunk` attaches an `abort()` method to the promise
+      promise.abort();
+    };
   }, [page]);
 
   // Pagination handler
