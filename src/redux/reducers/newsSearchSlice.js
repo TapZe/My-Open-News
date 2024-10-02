@@ -45,14 +45,16 @@ export function fetchNews(params = {}) {
     begin_date = null,
     end_date = null,
     fq = null,
+    sort = "relevance",
   } = params;
 
-  return async (dispatch /*, getState */) => {
+  return async (dispatch /*, getState*/) => {
     const { VITE_NYT_API_KEY } = import.meta.env;
     const params = {
       "api-key": VITE_NYT_API_KEY,
       query,
       page,
+      sort,
     };
     // only add when it's inputed
     if (begin_date) params.begin_date = begin_date;
