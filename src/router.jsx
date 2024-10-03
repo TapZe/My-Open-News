@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
-// import Error404 from "./pages/Error404";
+import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
 import SavedNews from "./pages/SavedNews";
 import SearchNews from "./pages/SearchNews";
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    // errorElement: <Error404/>,
+    errorElement: <Error404 />,
     children: [
       {
         path: "",
