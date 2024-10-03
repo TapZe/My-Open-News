@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchNews } from "../redux/reducers/newsSearchSlice";
 import NewsPagination from "../components/news/NewsPagination";
 import ErrorMessage from "../components/ErrorMessage";
 import NewsGrid from "../components/news/NewsGrid";
 
 const Home = () => {
-  const { news, isLoading, errorMessage, totalPages } = useSelector(
-    (state) => state.newsSearch
-  );
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(0); // can be centralize with the already existing redux
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,17 +33,11 @@ const Home = () => {
           Indonesia <span className="text-cyan-600">News</span>
         </h1>
         {/* Error Msg */}
-        {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+        <ErrorMessage />
         {/* Skeleton and news*/}
-        <NewsGrid news={news} isLoading={isLoading} />
+        <NewsGrid />
         {/* Pagination */}
-        {totalPages > 1 && (
-          <NewsPagination
-            page={page}
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
-        )}
+        <NewsPagination page={page} handlePageChange={handlePageChange} />
       </div>
     </>
   );
