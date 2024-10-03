@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchNews } from "../redux/reducers/newsSearchSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import NewsGrid from "../components/news/NewsGrid";
 import NewsPagination from "../components/news/NewsPagination";
 
 const SearchNews = () => {
-  const { news, isLoading, errorMessage, totalPages } = useSelector(
-    (state) => state.newsSearch
-  );
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
   const { query } = useParams();
@@ -41,17 +38,11 @@ const SearchNews = () => {
           <span className="text-cyan-600">News</span>
         </h1>
         {/* Error Msg */}
-        {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+        <ErrorMessage />
         {/* Skeleton and news*/}
-        <NewsGrid news={news} isLoading={isLoading} />
+        <NewsGrid />
         {/* Pagination */}
-        {totalPages > 1 && (
-          <NewsPagination
-            page={page}
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-          />
-        )}
+        <NewsPagination page={page} handlePageChange={handlePageChange} />
       </div>
     </>
   );

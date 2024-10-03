@@ -1,7 +1,10 @@
 import NewsCardSkeleton from "./cards/NewsCardSkeleton";
 import NewsCard from "./cards/NewsCard";
+import { useSelector } from "react-redux";
 
-const NewsGrid = ({ news, isLoading }) => {
+const NewsGrid = () => {
+  const { news, isLoading } = useSelector((state) => state.newsSearch);
+
   // This is for defining how many copies of skeleton
   const skeletonCount = 8;
 
