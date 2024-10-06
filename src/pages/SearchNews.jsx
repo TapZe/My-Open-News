@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchNews } from "../redux/reducers/newsSearchSlice";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import NewsGrid from "../components/news/NewsGrid";
 import NewsPagination from "../components/news/NewsPagination";
@@ -9,7 +9,8 @@ import NewsPagination from "../components/news/NewsPagination";
 const SearchNews = () => {
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
-  const { query } = useParams();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
 
   useEffect(() => {
     const params = {
