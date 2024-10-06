@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { fetchNews } from "../redux/reducers/newsSearchSlice";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import NewsGrid from "../components/news/NewsGrid";
 import NewsPagination from "../components/news/NewsPagination";
 
 const SearchNews = () => {
-  const [page, setPage] = useState(0);
+  const { page } = useSelector((state) => state.newsSearch);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
@@ -24,10 +24,12 @@ const SearchNews = () => {
     };
   }, [page, query]);
 
-  // Pagination handler
-  const handlePageChange = (pageNumber) => {
-    setPage(pageNumber);
-  };
+  // Reset page when unmounted only
+  useEffect(() => {
+    return () => {
+      dispatch(setPage(0));
+    };
+  }, []);
 
   return (
     <>
@@ -43,7 +45,7 @@ const SearchNews = () => {
         {/* Skeleton and news*/}
         <NewsGrid />
         {/* Pagination */}
-        <NewsPagination page={page} handlePageChange={handlePageChange} />
+        <NewsPagination />
       </div>
     </>
   );

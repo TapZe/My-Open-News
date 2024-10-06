@@ -1,7 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage } from "../../redux/reducers/newsSearchSlice";
 
-const NewsPagination = ({ page, handlePageChange }) => {
-  const { totalPages } = useSelector((state) => state.newsSearch);
+const NewsPagination = () => {
+  const { totalPages, page } = useSelector((state) => state.newsSearch);
+  const dispatch = useDispatch();
+
+  // Pagination handler
+  const handlePageChange = (pageNumber) => {
+    dispatch(setPage(pageNumber));
+  };
 
   // Function to calculate which pages to show in pagination
   const getPageNumbers = () => {

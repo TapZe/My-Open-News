@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchNews } from "../redux/reducers/newsSearchSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 import NewsPagination from "../components/news/NewsPagination";
 import ErrorMessage from "../components/ErrorMessage";
 import NewsGrid from "../components/news/NewsGrid";
 
 const Home = () => {
-  const [page, setPage] = useState(0); // can be centralize with the already existing redux
+  const { page } = useSelector((state) => state.newsSearch);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,10 +21,12 @@ const Home = () => {
     };
   }, [page]);
 
-  // Pagination handler
-  const handlePageChange = (pageNumber) => {
-    setPage(pageNumber);
-  };
+  // Reset page when unmounted only
+  useEffect(() => {
+    return () => {
+      dispatch(setPage(0));
+    };
+  }, []);
 
   return (
     <>
@@ -37,7 +39,7 @@ const Home = () => {
         {/* Skeleton and news*/}
         <NewsGrid />
         {/* Pagination */}
-        <NewsPagination page={page} handlePageChange={handlePageChange} />
+        <NewsPagination />
       </div>
     </>
   );
