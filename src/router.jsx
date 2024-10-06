@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
+import IndonesiaNews from "./pages/IndonesiaNews";
 import SavedNews from "./pages/SavedNews";
 import SearchNews from "./pages/SearchNews";
 // import CategoryNews from "./pages/CategoryNews";
@@ -16,8 +17,12 @@ const router = createBrowserRouter([
     errorElement: <Error404 />,
     children: [
       {
-        path: "",
+        path: "/",
         element: <Home />,
+      },
+      {
+        path: "/indonesia",
+        element: <IndonesiaNews />,
       },
       {
         path: "/programming",

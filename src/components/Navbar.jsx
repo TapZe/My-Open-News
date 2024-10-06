@@ -70,6 +70,16 @@ const Navbar = () => {
               </li> */}
               <li>
                 <NavLink
+                  to={`/indonesia`}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary border-primary border-l-2" : ""
+                  }
+                >
+                  Indonesia
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to={`/programming`}
                   className={({ isActive }) =>
                     isActive ? "text-primary border-primary border-l-2" : ""
@@ -96,6 +106,16 @@ const Navbar = () => {
             {/* <li>
               <Link to={`/category`}>Category</Link>
             </li> */}
+            <li>
+              <NavLink
+                to={`/indonesia`}
+                className={({ isActive }) =>
+                  isActive ? "text-primary border-primary border-b-2" : ""
+                }
+              >
+                Indonesia
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to={`/programming`}
