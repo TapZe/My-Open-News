@@ -59,7 +59,7 @@ const Navbar = () => {
                 <NavLink
                   to={`/`}
                   className={({ isActive }) =>
-                    isActive ? "btn-primary" : "btn-secondary"
+                    isActive ? "text-primary border-primary border-l-2" : ""
                   }
                 >
                   Home
@@ -69,7 +69,14 @@ const Navbar = () => {
                 <Link to={`/category`}>Category</Link>
               </li> */}
               <li>
-                <Link to={`/programming`}>Programming</Link>
+                <NavLink
+                  to={`/programming`}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary border-primary border-l-2" : ""
+                  }
+                >
+                  Programming
+                </NavLink>
               </li>
             </ul>
           </div>
