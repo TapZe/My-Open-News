@@ -1,11 +1,9 @@
-import { faBookmark as solidBookmark } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark as regularBookmark } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveArticle,
   removeArticle,
 } from "../../../redux/reducers/savedNewsSlice";
+import NewsSaveBtn from "./NewsSaveBtn";
 
 const NewsCard = ({ article }) => {
   const dispatch = useDispatch();
@@ -48,16 +46,7 @@ const NewsCard = ({ article }) => {
           />
         </figure>
         <div className="card-body">
-          <div className="group absolute top-2 right-2">
-            <button className="btn btn-sm btn-secondary" onClick={handleSave}>
-              <FontAwesomeIcon
-                icon={isSaved ? solidBookmark : regularBookmark}
-              />
-            </button>
-            <div className="tooltip absolute left-1/2 bottom-full mb-2 hidden w-32 -translate-x-1/2 rounded-md bg-gray-700 text-white text-xs px-2 py-1 shadow-lg group-hover:block">
-              {isSaved ? `Remove News` : `Save News`}
-            </div>
-          </div>
+          <NewsSaveBtn handleSave={handleSave} isSaved={isSaved} />
           <a
             className="card-title hover:underline"
             href={article.web_url}

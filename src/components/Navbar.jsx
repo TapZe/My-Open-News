@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import ThemeController from "./ThemeController";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBookmark } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +9,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (search !== "") {
-      navigate(`/search/${search}`);
+    if (search.trim() !== "") {
+      navigate(`/search?query=${search}`);
     }
   };
 
@@ -56,13 +56,37 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <Link to={`/`}>Home</Link>
+                <NavLink
+                  to={`/`}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary border-primary border-l-2" : ""
+                  }
+                >
+                  Home
+                </NavLink>
               </li>
               {/* <li>
                 <Link to={`/category`}>Category</Link>
               </li> */}
               <li>
-                <Link to={`/programming`}>Programming</Link>
+                <NavLink
+                  to={`/indonesia`}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary border-primary border-l-2" : ""
+                  }
+                >
+                  Indonesia
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={`/programming`}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary border-primary border-l-2" : ""
+                  }
+                >
+                  Programming
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -70,13 +94,37 @@ const Navbar = () => {
         <div className="navbar-start hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to={`/`}>Home</Link>
+              <NavLink
+                to={`/`}
+                className={({ isActive }) =>
+                  isActive ? "text-primary border-primary border-b-2" : ""
+                }
+              >
+                Home
+              </NavLink>
             </li>
             {/* <li>
               <Link to={`/category`}>Category</Link>
             </li> */}
             <li>
-              <Link to={`/programming`}>Programming</Link>
+              <NavLink
+                to={`/indonesia`}
+                className={({ isActive }) =>
+                  isActive ? "text-primary border-primary border-b-2" : ""
+                }
+              >
+                Indonesia
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`/programming`}
+                className={({ isActive }) =>
+                  isActive ? "text-primary border-primary border-b-2" : ""
+                }
+              >
+                Programming
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -99,11 +147,14 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
-          <Link to={`saved`}>
-            <button className="btn mr-2">
-              <FontAwesomeIcon icon={faBookmark} />
-            </button>
-          </Link>
+          <NavLink
+            to={`/saved`}
+            className={({ isActive }) =>
+              isActive ? "btn mr-2 border-primary text-primary" : "btn mr-2"
+            }
+          >
+            <FontAwesomeIcon icon={faBookmark} />
+          </NavLink>
           <ThemeController />
         </div>
       </div>

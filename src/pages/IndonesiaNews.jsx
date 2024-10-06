@@ -1,20 +1,17 @@
 import { useEffect } from "react";
-import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
+import NewsPagination from "../components/news/NewsPagination";
 import ErrorMessage from "../components/ErrorMessage";
 import NewsGrid from "../components/news/NewsGrid";
-import NewsPagination from "../components/news/NewsPagination";
 
-const SearchNews = () => {
+const IndonesiaNews = () => {
   const { page } = useSelector((state) => state.newsSearch);
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
 
   useEffect(() => {
+    // setting the parameters
     const params = {
-      query,
       page,
     };
     const promise = dispatch(fetchNews(params));
@@ -22,7 +19,7 @@ const SearchNews = () => {
       // `createAsyncThunk` attaches an `abort()` method to the promise
       promise.abort();
     };
-  }, [page, query]);
+  }, [page]);
 
   // Reset page when unmounted only
   useEffect(() => {
@@ -35,10 +32,7 @@ const SearchNews = () => {
     <>
       <div className="w-full">
         <h1 className="text-3xl font-bold text-center mb-10">
-          {query?.trim() // Make sure not empty (?. is for if the query an undefined var)
-            ? query
-            : "Indonesia"}{" "}
-          <span className="text-cyan-600">News</span>
+          Indonesia <span className="text-cyan-600">News</span>
         </h1>
         {/* Error Msg */}
         <ErrorMessage />
@@ -51,4 +45,4 @@ const SearchNews = () => {
   );
 };
 
-export default SearchNews;
+export default IndonesiaNews;

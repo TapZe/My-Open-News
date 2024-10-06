@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { SEARCH_URI } from "../../constants/apiBaseURI";
+import NYT_API_KEYS from "../../constants/apiKeyRetriver";
 
 export const newsSearchSlice = createSlice({
   name: "newsSearchSlice",
@@ -9,22 +10,12 @@ export const newsSearchSlice = createSlice({
     isLoading: false,
     errorMessage: "",
     totalPages: 0, // total pages
+    page: 0, //current page
   },
   reducers: {
-    // fetchNewsSearchSuccess: (state, action) => {
-    //   state.isLoading = false;
-    //   state.errorMessage = "";
-    //   state.news = action.payload.news;
-    //   const totalPages = Math.floor(action.payload.meta.hits / 10); //API pagination is 10 items per pages, hits is the items recieved
-    //   state.totalPages =
-    //     action.payload.meta.hits % 10 === 0 ? totalPages - 1 : totalPages; //If item is just 10 it will return 1 but the page is only page 0
-    // },
-    // fetchNewsSearchLoading: (state, action) => {
-    //   state.isLoading = action.payload;
-    // },
-    // fetchNewsSearchError: (state, action) => {
-    //   state.errorMessage = action.payload;
-    // },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -42,21 +33,15 @@ export const newsSearchSlice = createSlice({
       })
       .addCase(fetchNews.rejected, (state, action) => {
         if (!action.meta.aborted) state.isLoading = false;
-        state.errorMessage = action.payload
-          ? action.payload
-          : action.meta.aborted
-          ? "Some request has been aborted."
-          : "failed to fetch request";
+        state.errorMessage = action.error
+          ? action.error.message
+          : "Failed to fetch request";
       });
   },
 });
 
 // Action creators are generated for each case reducer function
-// export const {
-//   fetchNewsSearchSuccess,
-//   fetchNewsSearchLoading,
-//   fetchNewsSearchError,
-// } = newsSearchSlice.actions;
+export const { setPage } = newsSearchSlice.actions;
 
 export default newsSearchSlice.reducer;
 
@@ -73,10 +58,15 @@ export const fetchNews = createAsyncThunk(
       sort = "relevance",
     } = params;
 
-    try {
-      const { VITE_NYT_API_KEY } = import.meta.env;
+    let attempt = 0;
+    const maxAttempts = NYT_API_KEYS.length * 3; // 3 full cycles through all keys (how many keys * cycle)
+
+    while (attempt < maxAttempts) {
+      // Determine which API key to use on the current attempt
+      const apiKey = NYT_API_KEYS[attempt % NYT_API_KEYS.length]; // Rotate through keys
+
       const queryParams = {
-        "api-key": VITE_NYT_API_KEY,
+        "api-key": apiKey,
         query,
         page,
         sort,
@@ -87,69 +77,35 @@ export const fetchNews = createAsyncThunk(
       if (end_date) queryParams.end_date = end_date;
       if (fq) queryParams.fq = fq;
 
-      // Create the axios request with the signal to enable abort
-      const { data } = await axios.get(SEARCH_URI, {
-        params: queryParams,
-        signal, // Pass the signal from the thunkAPI (thunk has this build-in)
-      });
+      try {
+        // Create the axios request with the signal to enable abort
+        const { data } = await axios.get(SEARCH_URI, {
+          params: queryParams,
+          signal, // Pass the signal from the thunkAPI
+        });
 
-      const { docs: newsData, meta } = data.response;
-      return { news: newsData, meta };
-    } catch (error) {
-      // Check if the request was not aborted
-      if (axios.isCancel(error)) {
-        return rejectWithValue("Request canceled");
+        // If successful, return the data
+        const { docs: newsData, meta } = data.response;
+        return { news: newsData, meta };
+      } catch (error) {
+        // If error hit a 429 (Too Many Requests), increment attempt and try the next key
+        if (error.response && error.response.status === 429) {
+          console.warn(
+            `Attempt ${attempt + 1}: API Key ${
+              (attempt % NYT_API_KEYS.length) + 1
+            } hit rate limit, switching to the next key...`
+          );
+          attempt++;
+        } else {
+          // For other errors, reject immediately
+          return rejectWithValue(error.message);
+        }
       }
-      return rejectWithValue(error.message);
     }
+
+    // If we failed after 9 attempts (3 full rotations through the keys), return an error
+    return rejectWithValue(
+      "All API keys exceeded rate limits or failed after 9 attempts."
+    );
   }
 );
-
-// export function fetchNews({ params = {}, signal }) {
-//   // default parameters for params object
-//   const {
-//     query = "indonesia",
-//     page = 0,
-//     begin_date = null,
-//     end_date = null,
-//     fq = null,
-//     sort = "relevance",
-//   } = params;
-
-//   return async (dispatch /*, getState*/) => {
-//     let abort = false;
-//     const { VITE_NYT_API_KEY } = import.meta.env;
-//     const params = {
-//       "api-key": VITE_NYT_API_KEY,
-//       query,
-//       page,
-//       sort,
-//     };
-//     // only add when it's inputed
-//     if (begin_date) params.begin_date = begin_date;
-//     if (end_date) params.end_date = end_date;
-//     if (fq) params.fq = fq;
-
-//     dispatch(fetchNewsSearchLoading(true));
-//     try {
-//       const { data } = await axios({
-//         method: "GET",
-//         url: SEARCH_URI,
-//         params,
-//         signal,
-//       });
-//       const { docs: newsData, meta } = await data.response;
-//       dispatch(fetchNewsSearchSuccess({ news: newsData, meta }));
-//     } catch (error) {
-//       if (!axios.isCancel(error)) {
-//         dispatch(fetchNewsSearchError(error.message));
-//       } else {
-//         abort = true;
-//       }
-//     } finally {
-//       if (!abort) {
-//         dispatch(fetchNewsSearchLoading(false));
-//       }
-//     }
-//   };
-// }
