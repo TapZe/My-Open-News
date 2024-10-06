@@ -74,9 +74,9 @@ export const fetchNews = createAsyncThunk(
     } = params;
 
     try {
-      const { VITE_NYT_API_KEY } = import.meta.env;
+      const { VITE_NYT_API_KEY_1 } = import.meta.env;
       const queryParams = {
-        "api-key": VITE_NYT_API_KEY,
+        "api-key": VITE_NYT_API_KEY_1,
         query,
         page,
         sort,
