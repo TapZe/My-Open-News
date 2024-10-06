@@ -21,7 +21,7 @@ const SearchNews = () => {
       // `createAsyncThunk` attaches an `abort()` method to the promise
       promise.abort();
     };
-  }, [page]);
+  }, [page, query]);
 
   // Pagination handler
   const handlePageChange = (pageNumber) => {
