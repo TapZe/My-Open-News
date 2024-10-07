@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { combineReducers } from "redux";
 
 import newsSearchReducer from "./reducers/newsSearchSlice";
+import newsTopReducer from "./reducers/newsTopSlice";
 import savedNewsReducer from "./reducers/savedNewsSlice";
 import themeReducer from "./reducers/themeSlice";
 
@@ -25,6 +26,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: {
     newsSearch: newsSearchReducer,
+    newsTop: newsTopReducer,
     persist: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
