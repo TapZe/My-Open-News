@@ -3,8 +3,8 @@ import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
-import NewsGrid from "../components/news/NewsGrid";
 import NewsPagination from "../components/news/NewsPagination";
+import NewsSearchGrid from "../components/news/NewsSearchGrid";
 
 const SearchNews = () => {
   const { page } = useSelector((state) => state.newsSearch);
@@ -43,7 +43,7 @@ const SearchNews = () => {
         {/* Error Msg */}
         <ErrorMessage />
         {/* Skeleton and news*/}
-        <NewsGrid />
+        <NewsSearchGrid />
         {/* Pagination */}
         <NewsPagination />
       </div>

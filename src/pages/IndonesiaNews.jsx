@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 import NewsPagination from "../components/news/NewsPagination";
 import ErrorMessage from "../components/ErrorMessage";
-import NewsGrid from "../components/news/NewsGrid";
+import NewsSearchGrid from "../components/news/NewsSearchGrid";
 
 const IndonesiaNews = () => {
   const { page } = useSelector((state) => state.newsSearch);
@@ -37,7 +37,7 @@ const IndonesiaNews = () => {
         {/* Error Msg */}
         <ErrorMessage />
         {/* Skeleton and news*/}
-        <NewsGrid />
+        <NewsSearchGrid />
         {/* Pagination */}
         <NewsPagination />
       </div>

@@ -66,7 +66,7 @@ const NewsCard = ({ article }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Read News
+              Read More
             </a>
           </div>
         </div>

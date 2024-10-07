@@ -2,7 +2,7 @@ import NewsCardSkeleton from "./cards/NewsCardSkeleton";
 import NewsCard from "./cards/NewsCard";
 import { useSelector } from "react-redux";
 
-const NewsGrid = () => {
+const NewsSearchGrid = () => {
   const { news, isLoading } = useSelector((state) => state.newsSearch);
 
   // This is for defining how many copies of skeleton
@@ -29,4 +29,4 @@ const NewsGrid = () => {
   );
 };
 
-export default NewsGrid;
+export default NewsSearchGrid;
