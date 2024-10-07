@@ -5,7 +5,13 @@ import {
 } from "../../../redux/reducers/savedNewsSlice";
 import NewsSaveBtn from "./NewsSaveBtn";
 
-const NewsCard = ({ article }) => {
+const NewsCard = ({
+  article,
+  showImg = true,
+  showText = true,
+  showLead = false,
+  showBtn = true,
+}) => {
   const dispatch = useDispatch();
 
   // Retrieve saved articles from the Redux persist store
@@ -33,18 +39,20 @@ const NewsCard = ({ article }) => {
 
   return (
     <div className="flex justify-center">
-      <div className="card bg-base-100 w-80 shadow-xl">
-        <figure>
-          <img
-            src={
-              article.multimedia[0]
-                ? `http://www.nytimes.com/${article.multimedia[0].url}`
-                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlTTXqU0kuV6fgv5ncaBf_gnY39vGJa1F3A&s"
-            }
-            alt="..."
-            className="w-full aspect-video object-cover"
-          />
-        </figure>
+      <div className="card bg-base-100 w-full shadow-xl">
+        {showImg && (
+          <figure>
+            <img
+              src={
+                article.multimedia[0]
+                  ? `http://www.nytimes.com/${article.multimedia[0].url}`
+                  : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlTTXqU0kuV6fgv5ncaBf_gnY39vGJa1F3A&s"
+              }
+              alt="..."
+              className="w-full aspect-video object-cover"
+            />
+          </figure>
+        )}
         <div className="card-body">
           <NewsSaveBtn handleSave={handleSave} isSaved={isSaved} />
           <a
@@ -55,20 +63,25 @@ const NewsCard = ({ article }) => {
           >
             {article.headline.main}
           </a>
-          <p className="text-justify">{article.snippet}</p>
+          {showText && <div className="text-justify">{article.abstract}</div>}
+          {showLead && (
+            <div className="text-justify">{article.lead_paragraph}</div>
+          )}
           <p className="text-sm flex items-end text-gray-600">
             {formattedPubDate}
           </p>
-          <div className="card-actions justify-end">
-            <a
-              className="btn btn-primary"
-              href={article.web_url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read More
-            </a>
-          </div>
+          {showBtn && (
+            <div className="card-actions justify-end">
+              <a
+                className="btn btn-primary"
+                href={article.web_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Read More
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
