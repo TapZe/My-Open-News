@@ -64,11 +64,11 @@ const NewsHomeGrid = () => {
             ))}
           </div>
           {/* Top News */}
-          {topNews[0] && (
+          {topNews[9] && (
             <div className="lg:col-span-5">
               <NewsCard
-                key={topNews[0].uri}
-                article={topNews[0]}
+                key={topNews[9].uri}
+                article={topNews[9]}
                 showLead={true}
               />
             </div>
