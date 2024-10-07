@@ -17,10 +17,10 @@ const SearchNews = () => {
       query,
       page,
     };
-    const promise = dispatch(fetchNews(params));
+    const searchNews = dispatch(fetchNews(params));
     return () => {
-      // `createAsyncThunk` attaches an `abort()` method to the promise
-      promise.abort();
+      // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
+      searchNews.abort();
     };
   }, [page, query]);
 

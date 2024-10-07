@@ -25,10 +25,10 @@ const SearchNews = () => {
       .slice(0, 10)
       .replace(/-/g, ""); // format to 20201230 (as the api needs)
 
-    const promise = dispatch(fetchNews(params));
+    const searchNews = dispatch(fetchNews(params));
     return () => {
-      // `createAsyncThunk` attaches an `abort()` method to the promise
-      promise.abort();
+      // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
+      searchNews.abort();
     };
   }, [page]);
 
