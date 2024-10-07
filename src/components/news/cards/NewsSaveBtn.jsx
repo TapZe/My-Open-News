@@ -26,14 +26,14 @@ const NewsSaveBtn = ({ isSaved, handleSave }) => {
         <FontAwesomeIcon icon={isSaved ? solidBookmark : regularBookmark} />
       </button>
       <div
-        className={`tooltip absolute left-1/2 bottom-full mb-2 hidden w-32 -translate-x-1/2 rounded-md bg-gray-700 text-white text-xs px-2 py-1 shadow-lg group-hover:block ${
+        className={`tooltip absolute right-10 bottom-1 hidden w-32 rounded-md z-40 bg-gray-700 text-white text-xs px-2 py-1 shadow-lg group-hover:block ${
           showTooltip ? "opacity-0" : "opacity-100"
         }`}
       >
         {isSaved ? `Remove This Article` : `Save This Article`}
       </div>
       <div
-        className={`tooltip absolute left-1/2 bottom-full mb-2 w-32 -translate-x-1/2 rounded-md text-xs px-2 py-1 shadow-lg z-50 transition-opacity duration-300 ${
+        className={`tooltip absolute right-10 bottom-1 w-32 rounded-md text-xs px-2 py-1 shadow-lg z-50 transition-opacity duration-300 ${
           showTooltip ? "opacity-100" : "opacity-0"
         } ${isSaved ? "bg-success text-black" : "bg-error text-black"}`}
       >

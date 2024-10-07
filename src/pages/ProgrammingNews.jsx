@@ -3,7 +3,7 @@ import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NewsPagination from "../components/news/NewsPagination";
 import ErrorMessage from "../components/ErrorMessage";
-import NewsGrid from "../components/news/NewsGrid";
+import NewsSearchGrid from "../components/news/NewsSearchGrid";
 
 const SearchNews = () => {
   const { page } = useSelector((state) => state.newsSearch);
@@ -12,7 +12,7 @@ const SearchNews = () => {
   useEffect(() => {
     // setting the parameters
     const params = {
-      query: "programming",
+      query: "computer",
       fq: `section_name:("technology")`,
       page,
     };
@@ -25,10 +25,10 @@ const SearchNews = () => {
       .slice(0, 10)
       .replace(/-/g, ""); // format to 20201230 (as the api needs)
 
-    const promise = dispatch(fetchNews(params));
+    const searchNews = dispatch(fetchNews(params));
     return () => {
-      // `createAsyncThunk` attaches an `abort()` method to the promise
-      promise.abort();
+      // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
+      searchNews.abort();
     };
   }, [page]);
 
@@ -41,17 +41,15 @@ const SearchNews = () => {
 
   return (
     <>
-      <div className="w-full">
-        <h1 className="text-3xl font-bold text-center mb-10">
-          Monthly Programming <span className="text-cyan-600">News</span>
-        </h1>
-        {/* Error Msg */}
-        <ErrorMessage />
-        {/* Skeleton and news*/}
-        <NewsGrid />
-        {/* Pagination */}
-        <NewsPagination />
-      </div>
+      <h1 className="text-3xl font-bold text-center mb-10">
+        Monthly Programming <span className="text-cyan-600">News</span>
+      </h1>
+      {/* Error Msg */}
+      <ErrorMessage />
+      {/* Skeleton and news*/}
+      <NewsSearchGrid />
+      {/* Pagination */}
+      <NewsPagination />
     </>
   );
 };

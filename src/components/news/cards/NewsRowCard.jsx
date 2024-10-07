@@ -5,12 +5,12 @@ import {
 } from "../../../redux/reducers/savedNewsSlice";
 import NewsSaveBtn from "./NewsSaveBtn";
 
-const NewsCard = ({
+const NewsRowCard = ({
   article,
   showImg = true,
   showText = true,
   showLead = false,
-  showBtn = true,
+  showBtn = false,
 }) => {
   const dispatch = useDispatch();
 
@@ -39,9 +39,9 @@ const NewsCard = ({
 
   return (
     <div className="flex justify-center">
-      <div className="card bg-base-100 w-full shadow-xl">
+      <div className="card bg-base-100 w-full shadow-xl flex flex-col md:flex-row">
         {showImg && (
-          <figure>
+          <figure className="md:w-1/3 w-full">
             <img
               src={
                 article.multimedia[0]
@@ -52,29 +52,29 @@ const NewsCard = ({
                   : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlTTXqU0kuV6fgv5ncaBf_gnY39vGJa1F3A&s"
               }
               alt="..."
-              className="w-full aspect-video object-cover"
+              className="w-full h-full object-cover"
             />
           </figure>
         )}
-        <div className="card-body">
-          <NewsSaveBtn handleSave={handleSave} isSaved={isSaved} />
-          <a
-            className="card-title hover:underline"
-            href={article.web_url || article.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {article.headline?.main || article.title}
-          </a>
-          {showText && <div className="text-justify">{article.abstract}</div>}
-          {showLead && (
-            <div className="text-justify">{article.lead_paragraph}</div>
-          )}
-          <p className="text-sm flex items-end text-gray-600">
-            {formattedPubDate}
-          </p>
-          {showBtn && (
-            <div className="card-actions justify-end">
+        <div className="card-body md:w-2/3 flex flex-col justify-between pt-10">
+          <div>
+            <NewsSaveBtn handleSave={handleSave} isSaved={isSaved} />
+            <a
+              className="card-title hover:underline"
+              href={article.web_url || article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {article.headline?.main || article.title}
+            </a>
+            {showText && <div className="text-justify">{article.abstract}</div>}
+            {showLead && (
+              <div className="text-justify">{article.lead_paragraph}</div>
+            )}
+          </div>
+          <div className="flex items-center justify-between mt-4">
+            <p className="text-sm text-gray-600">{formattedPubDate}</p>
+            {showBtn && (
               <a
                 className="btn btn-primary"
                 href={article.web_url || article.url}
@@ -83,12 +83,12 @@ const NewsCard = ({
               >
                 Read More
               </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default NewsCard;
+export default NewsRowCard;

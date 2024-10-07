@@ -3,8 +3,8 @@ import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
-import NewsGrid from "../components/news/NewsGrid";
 import NewsPagination from "../components/news/NewsPagination";
+import NewsSearchGrid from "../components/news/NewsSearchGrid";
 
 const SearchNews = () => {
   const { page } = useSelector((state) => state.newsSearch);
@@ -17,10 +17,10 @@ const SearchNews = () => {
       query,
       page,
     };
-    const promise = dispatch(fetchNews(params));
+    const searchNews = dispatch(fetchNews(params));
     return () => {
-      // `createAsyncThunk` attaches an `abort()` method to the promise
-      promise.abort();
+      // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
+      searchNews.abort();
     };
   }, [page, query]);
 
@@ -33,20 +33,18 @@ const SearchNews = () => {
 
   return (
     <>
-      <div className="w-full">
-        <h1 className="text-3xl font-bold text-center mb-10">
-          {query?.trim() // Make sure not empty (?. is for if the query an undefined var)
-            ? query
-            : "Indonesia"}{" "}
-          <span className="text-cyan-600">News</span>
-        </h1>
-        {/* Error Msg */}
-        <ErrorMessage />
-        {/* Skeleton and news*/}
-        <NewsGrid />
-        {/* Pagination */}
-        <NewsPagination />
-      </div>
+      <h1 className="text-3xl font-bold text-center mb-10">
+        {query?.trim() // Make sure not empty (?. is for if the query an undefined var)
+          ? query
+          : "Indonesia"}{" "}
+        <span className="text-cyan-600">News</span>
+      </h1>
+      {/* Error Msg */}
+      <ErrorMessage />
+      {/* Skeleton and news*/}
+      <NewsSearchGrid />
+      {/* Pagination */}
+      <NewsPagination />
     </>
   );
 };
