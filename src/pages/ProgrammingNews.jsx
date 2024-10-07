@@ -12,7 +12,7 @@ const SearchNews = () => {
   useEffect(() => {
     // setting the parameters
     const params = {
-      query: "programming",
+      query: "computer",
       fq: `section_name:("technology")`,
       page,
     };
@@ -41,17 +41,15 @@ const SearchNews = () => {
 
   return (
     <>
-      <div className="w-full">
-        <h1 className="text-3xl font-bold text-center mb-10">
-          Monthly Programming <span className="text-cyan-600">News</span>
-        </h1>
-        {/* Error Msg */}
-        <ErrorMessage />
-        {/* Skeleton and news*/}
-        <NewsSearchGrid />
-        {/* Pagination */}
-        <NewsPagination />
-      </div>
+      <h1 className="text-3xl font-bold text-center mb-10">
+        Monthly Programming <span className="text-cyan-600">News</span>
+      </h1>
+      {/* Error Msg */}
+      <ErrorMessage />
+      {/* Skeleton and news*/}
+      <NewsSearchGrid />
+      {/* Pagination */}
+      <NewsPagination />
     </>
   );
 };
