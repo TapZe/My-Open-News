@@ -19,7 +19,7 @@ const NewsRowCard = ({
 
   // Check if the current article is already saved
   const isSaved = savedArticles?.some(
-    (savedArticle) => savedArticle._id === article._id
+    (savedArticle) => savedArticle.uri === article.uri
   );
 
   // Toggle save/remove article

@@ -9,7 +9,7 @@ const savedNewsSlice = createSlice({
     saveArticle: (state, action) => {
       // check if the inputed article is already saved
       const articleExists = state.savedArticles.some(
-        (article) => article._id === action.payload._id
+        (article) => article.uri === action.payload.uri
       );
 
       // If not, save the article
@@ -19,7 +19,7 @@ const savedNewsSlice = createSlice({
     },
     removeArticle: (state, action) => {
       state.savedArticles = state.savedArticles.filter(
-        (article) => article._id !== action.payload._id
+        (article) => article.uri !== action.payload.uri
       );
     },
   },

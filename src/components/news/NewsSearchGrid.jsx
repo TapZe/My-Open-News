@@ -27,22 +27,22 @@ const NewsSearchGrid = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {news[0] && (
             <div className="lg:row-span-1">
-              <NewsCard key={news[0]._id} article={news[0]} showLead={true} />
+              <NewsCard key={news[0].uri} article={news[0]} showLead={true} />
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:row-span-2">
             {news?.slice(1, 5).map((article) => (
-              <NewsRowCard key={article._id} article={article} />
+              <NewsRowCard key={article.uri} article={article} />
             ))}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:row-start-2 lg:row-span-2">
             {news?.slice(5, 9).map((article) => (
-              <NewsRowCard key={article._id} article={article} />
+              <NewsRowCard key={article.uri} article={article} />
             ))}
           </div>
           {news[9] && (
             <div className="lg:row-span-1">
-              <NewsCard key={news[9]._id} article={news[9]} showLead={true} />
+              <NewsCard key={news[9].uri} article={news[9]} showLead={true} />
             </div>
           )}
         </div>
