@@ -22,7 +22,7 @@ const NewsSearchGrid = () => {
 
   return (
     <>
-      <div className="grid grid-col-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-col-1 lg:grid-cols-2 gap-10">
         {news[0] && (
           <div className="lg:row-span-1">
             <NewsCard key={news[0]._id} article={news[0]} showLead={true} />
