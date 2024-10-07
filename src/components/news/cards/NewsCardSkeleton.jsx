@@ -1,6 +1,6 @@
 const NewsCardSkeleton = () => {
   return (
-    <div className="card bg-base-100 w-80 shadow-xl">
+    <div className="card bg-base-100 w-full shadow-xl">
       <figure>
         <div className="skeleton h-48 w-full"></div>
       </figure>
