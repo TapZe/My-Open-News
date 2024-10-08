@@ -44,7 +44,7 @@ const NewsRowCard = ({
           <figure className="md:w-1/3 w-full md:rounded-t-none md:rounded-tl-2xl md:rounded-bl-2xl">
             <img
               src={
-                article.multimedia[0]
+                article.multimedia && article.multimedia[0]
                   ? `http://www.nytimes.com/${article.multimedia[0].url.replace(
                       "https://static01.nyt.com/",
                       ""
