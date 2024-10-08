@@ -44,7 +44,7 @@ const NewsCard = ({
           <figure>
             <img
               src={
-                article.multimedia[0]
+                article.multimedia && article.multimedia[0]
                   ? `http://www.nytimes.com/${article.multimedia[0].url.replace(
                       "https://static01.nyt.com/",
                       ""
