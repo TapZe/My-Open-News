@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import NewsCard from "./cards/NewsCard";
-import NewsCardSkeleton from "./cards/NewsCardSkeleton";
+import NewsSkeletonCard from "./cards/NewsSkeletonCard";
 import NewsRowCard from "./cards/NewsRowCard";
 
 const NewsHomeGrid = () => {
@@ -11,24 +11,77 @@ const NewsHomeGrid = () => {
     (state) => state.newsTop
   );
 
-  // This is for defining how many copies of skeleton
-  const skeletonCount = 8;
+  const isLoading = searchLoading || topLoading;
 
-  if (searchLoading || topLoading) {
+  if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-        {Array(skeletonCount)
-          .fill(null)
-          .map((_, index) => (
-            <NewsCardSkeleton key={index} />
-          ))}
-      </div>
+      <>
+        <div className="relative overflow-x-hidden py-10 px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-10 gap-y-14">
+            {/* Top news */}
+            <div className="lg:col-span-6">
+              {Array(1)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+            <div className="grid grid-cols-1 gap-6 lg:row-span-2 lg:col-span-4">
+              {Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+            {/* Search news query="" */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:col-span-5 lg:col-start-6">
+              {Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+            {/* Top News */}
+            <div className="grid grid-cols-1 gap-6 lg:row-start-2 lg:row-span-2 lg:col-span-5 lg:col-start-1">
+              {Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+            {/* Search news query="" */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:col-span-5">
+              {Array(2)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+            {/* Top News */}
+            <div className="lg:col-span-5">
+              {Array(1)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+            {/* Search news query="" */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:col-span-10">
+              {Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <NewsSkeletonCard key={index} />
+                ))}
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 
   return (
     <>
-      <div className="overflow-x-hidden">
+      <div className="relative overflow-x-hidden py-10 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-10 gap-y-14">
           {/* Top news */}
           {topNews[0] && (

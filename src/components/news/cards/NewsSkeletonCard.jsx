@@ -1,4 +1,4 @@
-const NewsCardSkeleton = () => {
+const NewsSkeletonCard = () => {
   return (
     <div className="card bg-base-100 w-full shadow-xl">
       <figure>
@@ -16,4 +16,4 @@ const NewsCardSkeleton = () => {
   );
 };
 
-export default NewsCardSkeleton;
+export default NewsSkeletonCard;
