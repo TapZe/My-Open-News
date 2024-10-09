@@ -1,48 +1,77 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
+// Layout and 404 import
 import MainLayout from "./layouts/MainLayout";
 import Error404 from "./pages/Error404";
-import Home from "./pages/Home";
-import IndonesiaNews from "./pages/IndonesiaNews";
-import SavedNews from "./pages/SavedNews";
-import SearchNews from "./pages/SearchNews";
-// import CategoryNews from "./pages/CategoryNews";
-// import CategoryHero from "./pages/CategoryHero";
-import ProgrammingNews from "./pages/ProgrammingNews";
+import Fallback from "./components/Fallback";
+
+// Lazy-load when importing the pages
+const Home = lazy(() => import("./pages/Home"));
+const IndonesiaNews = lazy(() => import("./pages/IndonesiaNews"));
+const SavedNews = lazy(() => import("./pages/SavedNews"));
+const SearchNews = lazy(() => import("./pages/SearchNews"));
+const Category = lazy(() => import("./pages/Category"));
+const ProgrammingNews = lazy(() => import("./pages/ProgrammingNews"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      // Useful when there is more than one layout
+      <Suspense fallback={<Fallback />}>
+        <MainLayout />
+      </Suspense>
+    ),
     errorElement: <Error404 />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/indonesia",
-        element: <IndonesiaNews />,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <IndonesiaNews />
+          </Suspense>
+        ),
       },
       {
         path: "/programming",
-        element: <ProgrammingNews />,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <ProgrammingNews />
+          </Suspense>
+        ),
       },
-      // {
-      //   path: "/category",
-      //   element: <CategoryHero />,
-      // },
-      // {
-      //   path: "/category/:section",
-      //   element: <CategoryNews />,
-      // },
+      {
+        path: "/category",
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <Category />
+          </Suspense>
+        ),
+      },
       {
         path: "/search",
-        element: <SearchNews />,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <SearchNews />
+          </Suspense>
+        ),
       },
       {
         path: "/saved",
-        element: <SavedNews />,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <SavedNews />
+          </Suspense>
+        ),
       },
     ],
   },

@@ -1,35 +1,24 @@
-import { useEffect } from "react";
-import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import ErrorMessage from "../components/ErrorMessage";
 import NewsPagination from "../components/news/NewsPagination";
 import NewsSearchGrid from "../components/news/NewsSearchGrid";
+import useSearchNews from "../hooks/useSearchNews";
 
 const SearchNews = () => {
-  const { page } = useSelector((state) => state.newsSearch);
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
 
-  useEffect(() => {
-    const params = {
+  // Memoize the params to prevent unnecessary re-renders (every object create a new reference each re-render)
+  // This will memorize the params in a cache
+  const params = useMemo(
+    () => ({
       query,
-      page,
-    };
-    const searchNews = dispatch(fetchNews(params));
-    return () => {
-      // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
-      searchNews.abort();
-    };
-  }, [page, query]);
-
-  // Reset page when unmounted only
-  useEffect(() => {
-    return () => {
-      dispatch(setPage(0));
-    };
-  }, []);
+    }),
+    [query]
+  );
+  const searchNews = useSearchNews(params);
 
   return (
     <>
