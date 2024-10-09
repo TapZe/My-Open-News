@@ -6,7 +6,7 @@ const useTopNews = (section = null) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const topNews = dispatch(fetchTopNews());
+    const topNews = dispatch(fetchTopNews(section));
 
     return () => {
       // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"

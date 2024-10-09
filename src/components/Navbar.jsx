@@ -65,9 +65,16 @@ const Navbar = () => {
                   Home
                 </NavLink>
               </li>
-              {/* <li>
-                <Link to={`/category`}>Category</Link>
-              </li> */}
+              <li>
+                <NavLink
+                  to={`/category`}
+                  className={({ isActive }) =>
+                    isActive ? "text-primary border-primary border-b-2" : ""
+                  }
+                >
+                  Category
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to={`/indonesia`}
@@ -103,9 +110,16 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            {/* <li>
-              <Link to={`/category`}>Category</Link>
-            </li> */}
+            <li>
+              <NavLink
+                to={`/category`}
+                className={({ isActive }) =>
+                  isActive ? "text-primary border-primary border-b-2" : ""
+                }
+              >
+                Category
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to={`/indonesia`}

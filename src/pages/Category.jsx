@@ -2,34 +2,35 @@ import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import ErrorMessage from "../components/ErrorMessage";
-import NewsPagination from "../components/news/NewsPagination";
 import NewsSearchGrid from "../components/news/NewsSearchGrid";
+import NewsPagination from "../components/news/NewsPagination";
 import useSearchNews from "../hooks/useSearchNews";
+import CategoryFilter from "../components/news/CategoryFilter";
 
-const SearchNews = () => {
+const Category = () => {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
+  const section = searchParams.get("section") || "Business";
 
   // Memoize the params to prevent unnecessary re-renders (every object create a new reference each re-render)
   // This will memorize the params in a cache
   const params = useMemo(
     () => ({
-      query,
+      query: "",
+      fq: `news_desk:(${section})`,
     }),
-    [query]
+    [section]
   );
   const searchNews = useSearchNews(params);
 
   return (
     <>
       <h1 className="text-3xl font-bold text-center">
-        {query?.trim() // Make sure not empty (?. is for if the query an undefined var)
-          ? query
-          : "Indonesia"}{" "}
-        <span className="text-cyan-600">News</span>
+        Category <span className="text-cyan-600">News</span>
       </h1>
       {/* Error Msg */}
       <ErrorMessage />
+      {/* Filtering Category */}
+      <CategoryFilter />
       {/* Skeleton and news*/}
       <NewsSearchGrid />
       {/* Pagination */}
@@ -38,4 +39,4 @@ const SearchNews = () => {
   );
 };
 
-export default SearchNews;
+export default Category;
