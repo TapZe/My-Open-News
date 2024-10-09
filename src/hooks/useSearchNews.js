@@ -1,22 +1,19 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews, setPage } from "../redux/reducers/newsSearchSlice";
 
-const useSearchNews = (params = {}) => {
+const useSearchNews = (params) => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.newsSearch);
-
-  // Memoize the params to prevent unnecessary re-renders (every object create a new reference each re-render)
-  // This will memorize the params in a cache
-  const memoizedParams = useMemo(() => ({ ...params, page }), [params, page]);
+  params.page = page;
 
   useEffect(() => {
-    const searchNews = dispatch(fetchNews(memoizedParams));
+    const searchNews = dispatch(fetchNews(params));
     return () => {
       // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
       searchNews.abort();
     };
-  }, [memoizedParams]);
+  }, [params, page]);
 
   // Reset page when unmounted only
   useEffect(() => {
