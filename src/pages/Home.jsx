@@ -1,27 +1,16 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchNews } from "../redux/reducers/newsSearchSlice";
+import { useMemo } from "react";
+
 import NewsHomeGrid from "../components/news/NewsHomeGrid";
 import ErrorMessage from "../components/ErrorMessage";
-import { fetchTopNews } from "../redux/reducers/newsTopSlice";
+import useSearchNews from "../hooks/useSearchNews";
+import useTopNews from "../hooks/useFetchTopNews";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // setting the parameters
-    const params = {
-      query: "",
-      page: 0,
-    };
-    const searchNews = dispatch(fetchNews(params));
-    const topNews = dispatch(fetchTopNews());
-    return () => {
-      // `createAsyncThunk` attaches an `abort()` method to the promise "searchNews"
-      searchNews.abort();
-      topNews.abort();
-    };
-  }, []);
+  // Memoize the params to prevent unnecessary re-renders (every object create a new reference each re-render)
+  // This will memorize the params in a cache
+  const params = useMemo(() => ({}), []);
+  const searchNews = useSearchNews(params);
+  const topNews = useTopNews();
 
   return (
     <>
