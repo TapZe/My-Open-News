@@ -65,7 +65,7 @@ Follow these steps to set up this project locally:
    VITE_NYT_API_KEY_3=
    VITE_NYT_API_BASE_URI=
    ```
-   Add your actual API key and base URI from the New York Times API (you can add just the first key).
+   Add your actual API keys (you can add just the first key) and base URI from the New York Times API.
 
 5. **Install dependencies:**
 
