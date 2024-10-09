@@ -16,12 +16,12 @@
 - Search Functionality: Users can search for news based on their custom queries, making it easier to find relevant articles.
 - Save Favorite News: Users can save articles they want to keep for later reading, and these preferences are persisted across sessions using Redux and Redux Persist.
 - Real-Time News Updates: Fetches daily news updates in real-time using the New York Times API, ensuring users receive the latest headlines and stories.
-- _(TBA) Organized Sections: Users can open category pages for easy navigation, allowing them to explore content quickly and efficiently across different news sections._
+- Organized Sections: Users can open category pages for easy category navigation, allowing them to explore content quickly and efficiently across different news sections.
 - Responsive Design: The application is optimized for both mobile and desktop devices, providing a seamless experience across various screen sizes.
 - User-Friendly Interface: Intuitive UI with clear navigation and minimalistic design for a pleasant browsing experience.
 - Custom Icons: Uses custom-designed SVG icons to enhance the visual appeal of the site.
 - Loading States & Error Handling: Visual indicators and error handling ensure smooth API requests, keeping users informed about loading or network issues.
-- _(TBA) Fast Performance: Optimized performance through lazy loading and minimized API calls for a fast and smooth user experience._
+- Fast Performance: Optimized performance through lazy loading and minimized API calls for a fast and smooth user experience.
 
 ## Technologies Used
 
