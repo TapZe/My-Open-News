@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTopNews } from "../redux/reducers/newsTopSlice";
 
-const useTopNews = (section = null) => {
+const useTopNews = (section) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
