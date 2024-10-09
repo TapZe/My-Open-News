@@ -6,7 +6,7 @@ import MainLayout from "./layouts/MainLayout";
 import Error404 from "./pages/Error404";
 import Fallback from "./components/Fallback";
 
-// Lazy-load pages
+// Lazy-load when importing the pages
 const Home = lazy(() => import("./pages/Home"));
 const IndonesiaNews = lazy(() => import("./pages/IndonesiaNews"));
 const SavedNews = lazy(() => import("./pages/SavedNews"));
@@ -18,6 +18,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
+      // Useful when there is more than one layout
       <Suspense fallback={<Fallback />}>
         <MainLayout />
       </Suspense>
