@@ -8,7 +8,12 @@ import useTopNews from "../hooks/useFetchTopNews";
 const Home = () => {
   // Memoize the params to prevent unnecessary re-renders (every object create a new reference each re-render)
   // This will memorize the params in a cache
-  const params = useMemo(() => ({}), []);
+  const params = useMemo(
+    () => ({
+      query: "",
+    }),
+    []
+  );
   const searchNews = useSearchNews(params);
   const topNews = useTopNews();
 
