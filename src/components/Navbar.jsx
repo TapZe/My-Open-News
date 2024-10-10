@@ -69,7 +69,7 @@ const Navbar = () => {
                 <NavLink
                   to={`/category`}
                   className={({ isActive }) =>
-                    isActive ? "text-primary border-primary border-b-2" : ""
+                    isActive ? "text-primary border-primary border-l-2" : ""
                   }
                 >
                   Category
