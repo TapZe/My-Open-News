@@ -25,11 +25,11 @@ const CategoryFilter = () => {
 
   return (
     <>
-      <div className="flex flex-col border-2 border-dotted border-neutral mt-5 p-2 rounded-lg">
+      <div className="flex flex-col border-2 border-dotted border-neutral mt-5 p-4 rounded-lg">
         <div>
           <h1 className="text-xl font-bold text-center">Pick your Category</h1>
         </div>
-        <div className="flex justify-center gap-x-2 mt-3">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mt-5">
           {sections.map((section) => {
             return (
               <input
