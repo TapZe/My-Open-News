@@ -2,7 +2,7 @@
 
 ### Final Project: News Web App API on Program Web Development + React Bootcamp IBM X Hacktiv8
 
-**Open News** is a web application that displays the latest news on various topics, including international news, Indonesian news, and a monthly programming section. It also allows users to search for news based on their own queries. The application uses data from the [NYTimes](https://developer.nytimes.com) to fetch real-time, daily updated news.. **The demo website is deployed at [my-open-news.vercel.app](https://my-open-news.vercel.app)**.
+**Open News** is a web application that displays the latest news on various topics, including international news, Indonesian news, and a monthly programming section. It also allows users to search for news based on their own queries. The application uses data from the [NYTimes](https://developer.nytimes.com) to fetch real-time, daily updated news. **The demo website is deployed at [my-open-news.vercel.app](https://my-open-news.vercel.app)**.
 
 ## Table of Contents
 
